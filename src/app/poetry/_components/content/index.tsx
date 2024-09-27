@@ -43,7 +43,6 @@ const Content: React.FC<ContentProps> = ({ poetry, children }) => {
     return lines.map((line, lineIndex) => {
       let inParentheses = false;
       const parts = line.split(/(\(|\)|(?:(?![()])[^])+)/);
-      
       return (
         <React.Fragment key={lineIndex}>
           {parts.map((part, partIndex) => {
@@ -54,7 +53,10 @@ const Content: React.FC<ContentProps> = ({ poetry, children }) => {
               inParentheses = false;
               return part;
             } else if (!inParentheses) {
-              return part.split(new RegExp(`(${keywords.join('|')})`, 'g')).map((subPart, subIndex) => {
+              // 转义特殊字符
+              const escapedKeywords = keywords.map(keyword => keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+              const regex = new RegExp(`(${escapedKeywords.join('|')})`, 'g');
+              return part.split(regex).map((subPart, subIndex) => {
                 if (keywords.includes(subPart)) {
                   return (
                     <Highlight key={`${lineIndex}-${partIndex}-${subIndex}`} text={remark[subPart]!}>

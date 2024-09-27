@@ -4,6 +4,7 @@ import { Star, ThumbsUp, ExternalLink, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Highlight from "../_components/content/highlight";
 import { unstable_cache } from "next/cache";
+import { cache } from "react";
 
 const buttons = [
   {
@@ -32,6 +33,8 @@ const buttons = [
   },
 ];
 
+export const revalidate = 3600
+
 export default async function Page({ params }: { params: { id: string } }) {
   const getPoetry = unstable_cache(
     async (id: string) => {
@@ -50,7 +53,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       revalidate: 3600,
     },
   );
-  const poetry = await getPoetry(params.id);
+  const poetry = await cache(getPoetry)(params.id);
 
   return (
     <div className="mx-auto max-w-[828px]">
