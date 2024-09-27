@@ -1,0 +1,12 @@
+model Poetry {
+  id Int @id @default(autoincrement())
+  title String @db.VarChar(255)
+  dynasty String @db.VarChar(255)
+  writer String @db.VarChar(255)
+  type String @db.VarChar(255)
+  content String @db.Text
+  remark String @db.Text
+  translation String @db.Text
+  shangxi String @db.Text
+  audioUrl String @db.VarChar(255)
+}
