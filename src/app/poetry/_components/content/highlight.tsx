@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useRef, useState } from "react";
 import {
@@ -12,13 +12,23 @@ import {
   useDismiss,
   useRole,
   useInteractions,
-  FloatingArrow, arrow,
-  useTransitionStyles
+  FloatingArrow,
+  arrow,
+  useTransitionStyles,
 } from "@floating-ui/react";
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
+import React from "react";
+import clsx from "clsx";
 
-
-export default function Highlight({ children, text, underline = true }: { underline?: boolean,text: string, children: React.ReactNode }) {
+export default function Highlight({
+  children,
+  text,
+  underline = true,
+}: {
+  underline?: boolean;
+  text: string;
+  children: React.ReactNode;
+}) {
   const { theme } = useTheme();
 
   const arrowRef = useRef(null);
@@ -34,16 +44,16 @@ export default function Highlight({ children, text, underline = true }: { underl
     middleware: [
       offset(5),
       flip({
-        fallbackAxisSideDirection: "start"
+        fallbackAxisSideDirection: "start",
       }),
       shift(),
       arrow({
         element: arrowRef,
       }),
-    ]
+    ],
   });
 
-  const {isMounted, styles} = useTransitionStyles(context, {
+  const { isMounted, styles } = useTransitionStyles(context, {
     // Or, configure open and close durations separately:
     duration: {
       open: 200,
@@ -63,20 +73,34 @@ export default function Highlight({ children, text, underline = true }: { underl
     hover,
     focus,
     dismiss,
-    role
+    role,
   ]);
 
   return (
     <>
-      <span ref={refs.setReference} {...getReferenceProps()} className={`inline-flex flex-wrap ${underline && 'underline-offset-4 cursor-pointer decoration-dotted underline'}`}>{children}</span>
+      <span
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        className={clsx(
+          "inline-flex flex-wrap",
+          underline &&
+            "cursor-pointer underline decoration-dotted underline-offset-4",
+        )}
+      >
+        {children}
+      </span>
       {isOpen && isMounted && (
         <span
           ref={refs.setFloating}
-          style={{...floatingStyles, ...styles}}
+          style={{ ...floatingStyles, ...styles }}
           {...getFloatingProps()}
-          className="bg-background text-foreground font-sans text-base py-2 px-4 rounded-md border max-w-md"
+          className="max-w-md rounded-md border bg-background px-4 py-2 font-sans text-base text-foreground"
         >
-          <FloatingArrow fill={theme === 'light' ? 'black' : 'white'} ref={arrowRef} context={context} />
+          <FloatingArrow
+            fill={theme === "light" ? "black" : "white"}
+            ref={arrowRef}
+            context={context}
+          />
           <span>{text}</span>
         </span>
       )}

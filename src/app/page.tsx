@@ -7,6 +7,7 @@ import HomeContainer from "./_components/container";
 import { Montserrat_Alternates } from "next/font/google";
 import HomeHeader from "./_components/header";
 import { cache } from "react";
+import clsx from "clsx";
 
 const getStaticData = cache(async () => {
   const file = await fs.readFile("public/img-home/img-bg.svg");
@@ -23,7 +24,7 @@ export default async function Home() {
   const { base64 } = await getStaticData();
 
   return (
-    <main className={`main h-dvh ${fontMontserratAlternates.className}`}>
+    <main className={clsx("main h-dvh", fontMontserratAlternates.className)}>
       <HomeHeader />
       <section className="home h-dvh">
         <Image

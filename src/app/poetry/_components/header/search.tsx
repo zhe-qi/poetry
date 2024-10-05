@@ -4,6 +4,7 @@ import { Calculator, Calendar, CreditCard, Settings, Smile, User } from 'lucide-
 
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from '@/components/ui/command'
 import { Button } from '@/components/ui/button'
+import React from 'react'
 
 export default function Search() {
   const [open, setOpen] = useState(false)

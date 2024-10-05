@@ -5,6 +5,7 @@ const config = {
     "project": true
   },
   "plugins": [
+    // @ts-expect-error 类型检查
     "@typescript-eslint"
   ],
   "extends": [

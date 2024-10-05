@@ -1,3 +1,4 @@
+import React from "react";
 import Collapse from "./collapse";
 
 export default function Translation({ shangxi, remark }: { shangxi: string; remark: string }) {
