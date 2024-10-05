@@ -51,7 +51,7 @@ const Content: React.FC<ContentProps> = ({ poetry, children }) => {
                   const matchingRemarks = remark.filter(
                     (r) => r.key === subPart,
                   );
-                  const currentCount = keywordCounts[subPart] || 0;
+                  const currentCount = keywordCounts[subPart] ?? 0;
                   const currentRemark = matchingRemarks[currentCount];
 
                   if (

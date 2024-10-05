@@ -88,7 +88,7 @@ export function Pagination({
   };
 
   return (
-    <ShadcnPagination className="mt-4">
+    <ShadcnPagination className="mt-16">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

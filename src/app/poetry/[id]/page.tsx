@@ -33,14 +33,13 @@ const buttons = [
   },
 ];
 
-export const revalidate = 3600
-
 export default async function Page({ params }: { params: { id: string } }) {
   const getPoetry = unstable_cache(
     async (id: string) => {
       const poetry = await db.poetry.findUnique({
         where: { id: Number(id) },
       });
+
       if (!poetry) {
         throw new Error("Poetry not found");
       }
@@ -53,7 +52,8 @@ export default async function Page({ params }: { params: { id: string } }) {
       revalidate: 3600,
     },
   );
-  const poetry = await cache(getPoetry)(params.id);
+
+  const poetry = await getPoetry(params.id);
 
   return (
     <div className="mx-auto max-w-[828px]">

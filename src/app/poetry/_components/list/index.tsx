@@ -13,6 +13,7 @@ import { Pagination } from "../pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { useUpdateEffect } from "ahooks";
+import React from "react";
 
 interface ListProps {
   initialValue: PoetryListInitialValue;
@@ -84,7 +85,7 @@ export function List({ initialValue, defaultPagination }: ListProps) {
             <TableHead className="pl-4 xl:pl-8">标题</TableHead>
             <TableHead>作者</TableHead>
             <TableHead>诗词</TableHead>
-            <TableHead className="pr-4 text-right xl:pr-8">跳转</TableHead>
+            <TableHead className="pr-4 text-right xl:pr-8">操作</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -108,17 +109,17 @@ export function List({ initialValue, defaultPagination }: ListProps) {
               ))
             : // 数据加载完成后显示实际数据
               tableData.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow className="h-16" key={row.id}>
                   <TableCell className="w-[20dvw] pl-4 font-medium xl:pl-8">
                     {row.title}
                   </TableCell>
                   <TableCell>{row.writer}</TableCell>
                   <TableCell className="w-[40dvw]">
-                    <div className="line-clamp-3">{row.content}</div>
+                    <div className="line-clamp-2">{row.content}</div>
                   </TableCell>
                   <TableCell className="pr-4 text-right xl:pr-8">
-                    <Link href={`/poetry/${row.id}?title=${row.title}`} key={row.id}>
-                      前往
+                    <Link className="text-blue-500 dark:text-blue-400 hover:underline" href={`/poetry/${row.id}?title=${row.title}`} key={row.id}>
+                      详情
                     </Link>
                   </TableCell>
                 </TableRow>
